@@ -22,7 +22,10 @@
   "reactToolbox": {
     "include": [
         "BUTTON",
-        "DATE_PICKER"
+        "DATE_PICKER",
+        "CARD",
+        "INPUT",
+        "AVATAR"
     ],
     "customProperties": {
         "animation-duration": "0.3s",
