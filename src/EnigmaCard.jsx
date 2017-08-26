@@ -33,6 +33,10 @@ class EnigmaCard extends Component {
     window.location.hash = passphrase
   }
 
+  handleChange = (name, value) => {
+    this.setState({...this.state, [name]: value});
+  }
+
   render() {
     return (
       <div>
@@ -40,9 +44,30 @@ class EnigmaCard extends Component {
           <Card style={{width: '300px'}}>
             <CardTitle title="Enigma" />
             <Avatar title="Avatar" />
-            <Input type='text' label='Name' name='name' required />
-            <Input type='text' label='Message' name='message' maxLength={120} required />
-            <DatePicker label='Expiration Date' />
+            <Input
+              type='text'
+              label='Name'
+              name='name'
+              required
+              value={this.state.name}
+              onChange={this.handleChange.bind(this, 'name')}
+            />
+            <Input
+              type='text'
+              label='Message'
+              name='message'
+              maxLength={120}
+              required
+              value={this.state.message}
+              onChange={this.handleChange.bind(this, 'message')}
+            />
+            <DatePicker
+              label='Expiration Date'
+              name='expirationDate'
+              autoOk
+              value={this.state.expirationDate}
+              onChange={this.handleChange.bind(this, 'expirationDate')}
+            />
             <Button label="Encrypt" />
             <Button label="Decrypt" />
             <div>Your Passphrase - {this.state.passphrase}</div>
