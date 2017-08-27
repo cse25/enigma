@@ -8,10 +8,6 @@ var crypto = require('./crypto.js');
 app.use(compression())
 app.use(bodyParser.json());
 
-app.get('/', function(request, response) {
-  response.send('hello')
-})
-
 app.post('/encrypt', function(request, response) {
   const passphrase = request.body.passphrase
   const stringifiedBody = JSON.stringify(request.body)
