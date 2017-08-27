@@ -36,6 +36,28 @@ class EnigmaCard extends Component {
 
   handleChange = (name, value) => {
     this.setState({...this.state, [name]: value});
+  encrypt = () => {
+    this.handleToggle()
+    console.log(this.state.expirationDate)
+    axios.post('/encrypt', {
+      name: this.state.name,
+      message: this.state.message,
+      expirationDate: this.state.expirationDate,
+      passphrase: this.state.passphrase,
+    })
+      .then(response => this.setState({ encrypted: response.data }))
+  }
+
+  decrypt() {
+    axios.post('/decrypt', {
+      encrypted: this.state.encrypted,
+      passphrase: this.state.passphrase,
+    })
+      .then(response => this.setState({
+        message: response.data.message,
+        name: response.data.name,
+      }))
+      this.handleToggle()
   }
 
   render() {
@@ -75,29 +97,12 @@ class EnigmaCard extends Component {
               <Button
                 label="Encrypt"
                 name="encrypt"
-                onClick={() => {
-                  axios.post('/encrypt', {
-                    name: this.state.name,
-                    message: this.state.message,
-                    expirationDate: this.state.expirationDate,
-                    passphrase: this.state.passphrase,
-                  })
-                    .then(response => this.setState({ message: response.data }))
-                }}
+                onClick={this.encrypt}
               />
               <Button
                 label="Decrypt"
                 name="decrypt"
-                onClick={() => {
-                  axios.post('/decrypt', {
-                    message: this.state.message,
-                    passphrase: this.state.passphrase,
-                  })
-                    .then(response => this.setState({
-                      message: response.data.message,
-                      name: response.data.name,
-                    }))
-                }}
+                onClick={this.handleToggle}
               />
             </span>
             <div>Your Passphrase - {this.state.passphrase}</div>
