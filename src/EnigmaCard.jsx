@@ -9,6 +9,7 @@ import CardTitle from 'react-toolbox/lib/card/CardTitle'
 import Input from 'react-toolbox/lib/input/Input'
 import Avatar from 'react-toolbox/lib/avatar/Avatar'
 import DatePicker from 'react-toolbox/lib/date_picker/DatePicker'
+import Dialog from 'react-toolbox/lib/dialog/Dialog'
 import axios from 'axios'
 
 class EnigmaCard extends Component {
@@ -18,24 +19,41 @@ class EnigmaCard extends Component {
       name: '',
       message: '',
       expirationDate: '',
-      passphrase: ''
+      passphrase: '',
+      encrypted: '',
+      active: false
     }
   }
 
+  actions = [
+    { label: "Close", onClick: () => this.handleToggle() },
+    { label: "Decrypt", onClick: () => this.decrypt() }
+  ];
+
   componentDidMount() {
-    if (this.state.passphrase === '') {
+    if (localStorage.getItem === '') {
       this.generatePassphrase()
+    } else {
+      window.location.hash = localStorage.getItem('passphrase')
+      this.setState({ passphrase: localStorage.getItem('passphrase')})
     }
   }
 
   generatePassphrase() {
     const passphrase = Math.random().toString(36).substr(2, 5)
     this.setState({ passphrase })
+    localStorage.setItem('passphrase', passphrase)
     window.location.hash = passphrase
   }
 
   handleChange = (name, value) => {
-    this.setState({...this.state, [name]: value});
+    this.setState({ ...this.state, [name]: value });
+  }
+
+  handleToggle = () => {
+    this.setState({ active: !this.state.active });
+  }
+
   encrypt = () => {
     this.handleToggle()
     console.log(this.state.expirationDate)
@@ -66,7 +84,6 @@ class EnigmaCard extends Component {
         <ThemeProvider theme={theme}>
           <Card style={{width: '350px'}}>
             <CardTitle title="Enigma" />
-            <span>
               <Avatar title={this.state.name} />
               <Input
                 type='text'
@@ -76,7 +93,6 @@ class EnigmaCard extends Component {
                 value={this.state.name}
                 onChange={this.handleChange.bind(this, 'name')}
               />
-            </span>
             <Input
               type='text'
               label='Message'
@@ -105,6 +121,21 @@ class EnigmaCard extends Component {
                 onClick={this.handleToggle}
               />
             </span>
+            <Dialog
+              actions={this.actions}
+              active={this.state.active}
+              onEscKeyDown={this.handleToggle}
+              onOverlayClick={this.handleToggle}
+              title='De/Encrypt'
+            >
+              <Input
+                type='text'
+                label='Message'
+                name='encrypted'
+                value={this.state.encrypted}
+                onChange={this.handleChange.bind(this, 'encrypted')}
+              />
+            </Dialog>
             <div>Your Passphrase - {this.state.passphrase}</div>
             <div onClick={() => this.generatePassphrase()}>Generate New Passphrase</div>
           </Card>
