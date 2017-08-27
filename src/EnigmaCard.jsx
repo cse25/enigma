@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './index.css'
 import theme from './assets/react-toolbox/theme.js'
 import ThemeProvider from 'react-toolbox/lib/ThemeProvider'
 import './assets/react-toolbox/theme.css'
@@ -41,17 +42,19 @@ class EnigmaCard extends Component {
     return (
       <div>
         <ThemeProvider theme={theme}>
-          <Card style={{width: '300px'}}>
+          <Card style={{width: '350px'}}>
             <CardTitle title="Enigma" />
-            <Avatar title="Avatar" />
-            <Input
-              type='text'
-              label='Name'
-              name='name'
-              required
-              value={this.state.name}
-              onChange={this.handleChange.bind(this, 'name')}
-            />
+            <span>
+              <Avatar title={this.state.name} />
+              <Input
+                type='text'
+                label='Name'
+                name='name'
+                required
+                value={this.state.name}
+                onChange={this.handleChange.bind(this, 'name')}
+              />
+            </span>
             <Input
               type='text'
               label='Message'
@@ -68,8 +71,35 @@ class EnigmaCard extends Component {
               value={this.state.expirationDate}
               onChange={this.handleChange.bind(this, 'expirationDate')}
             />
-            <Button label="Encrypt" />
-            <Button label="Decrypt" />
+            <span>
+              <Button
+                label="Encrypt"
+                name="encrypt"
+                onClick={() => {
+                  axios.post('/encrypt', {
+                    name: this.state.name,
+                    message: this.state.message,
+                    expirationDate: this.state.expirationDate,
+                    passphrase: this.state.passphrase,
+                  })
+                    .then(response => this.setState({ message: response.data }))
+                }}
+              />
+              <Button
+                label="Decrypt"
+                name="decrypt"
+                onClick={() => {
+                  axios.post('/decrypt', {
+                    message: this.state.message,
+                    passphrase: this.state.passphrase,
+                  })
+                    .then(response => this.setState({
+                      message: response.data.message,
+                      name: response.data.name,
+                    }))
+                }}
+              />
+            </span>
             <div>Your Passphrase - {this.state.passphrase}</div>
             <div onClick={() => this.generatePassphrase()}>Generate New Passphrase</div>
           </Card>
