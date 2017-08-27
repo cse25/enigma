@@ -4,6 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "body-parser": "^1.17.2",
+    "compression": "^1.7.0",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.15.4",
+    "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.11"
@@ -16,6 +21,7 @@
     "toolbox": "react-toolbox-themr"
   },
   "devDependencies": {
+    "nodemon": "^1.11.0",
     "react-toolbox": "^2.0.0-beta.12",
     "react-toolbox-themr": "^1.0.2"
   },
