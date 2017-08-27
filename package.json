@@ -33,7 +33,8 @@
       "DATE_PICKER",
       "CARD",
       "INPUT",
-      "AVATAR"
+      "AVATAR",
+      "DIALOG"
     ],
     "customProperties": {
       "animation-duration": "0.3s",
