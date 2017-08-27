@@ -20,8 +20,7 @@ app.post('/decrypt', function(request, response) {
   const passphrase = request.body.passphrase
   const decrypted = crypto.decrypt(object, passphrase)
   const parsedObject = JSON.parse(decrypted)
-  if (moment().isBefore(parsedObject.expirationDate)) {
-    console.log('if')
+  if (moment().isBefore(parsedObject.expirationDate) || parsedObject.expirationDate === '') {
     response.send(parsedObject)
   } else {
     response.send({
