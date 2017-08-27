@@ -16,7 +16,7 @@ app.post('/encrypt', function(request, response) {
 })
 
 app.post('/decrypt', function(request, response) {
-  const object = request.body.message
+  const object = request.body.encrypted
   const passphrase = request.body.passphrase
   const decrypted = crypto.decrypt(object, passphrase)
   const parsedObject = JSON.parse(decrypted)
