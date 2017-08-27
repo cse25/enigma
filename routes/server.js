@@ -24,9 +24,10 @@ app.post('/decrypt', function(request, response) {
     console.log('if')
     response.send(parsedObject)
   } else {
-    console.log('else')
-    // trigger dialog
-    response.send('Message has expired')
+    response.send({
+      message: 'Message has expired',
+      name: ''
+    })
   }
 })
 
