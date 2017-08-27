@@ -20,6 +20,7 @@
     "eject": "react-scripts eject",
     "toolbox": "react-toolbox-themr"
   },
+  "proxy": "http://localhost:3001",
   "devDependencies": {
     "nodemon": "^1.11.0",
     "react-toolbox": "^2.0.0-beta.12",
