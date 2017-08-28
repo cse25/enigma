@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './index.css'
 import theme from './assets/react-toolbox/theme.js'
 import ThemeProvider from 'react-toolbox/lib/ThemeProvider'
 import './assets/react-toolbox/theme.css'
@@ -39,13 +38,6 @@ class EnigmaCard extends Component {
     }
   }
 
-  generatePassphrase() {
-    const passphrase = Math.random().toString(36).substr(2, 5)
-    this.setState({ passphrase })
-    localStorage.setItem('passphrase', passphrase)
-    window.location.hash = passphrase
-  }
-
   handleChange = (name, value) => {
     this.setState({ ...this.state, [name]: value });
   }
@@ -54,9 +46,15 @@ class EnigmaCard extends Component {
     this.setState({ active: !this.state.active });
   }
 
+  generatePassphrase() {
+    const passphrase = Math.random().toString(36).substr(2, 5)
+    this.setState({ passphrase })
+    localStorage.setItem('passphrase', passphrase)
+    window.location.hash = passphrase
+  }
+
   encrypt = () => {
     this.handleToggle()
-    console.log(this.state.expirationDate)
     axios.post('/encrypt', {
       name: this.state.name,
       message: this.state.message,
@@ -66,7 +64,7 @@ class EnigmaCard extends Component {
       .then(response => this.setState({ encrypted: response.data }))
   }
 
-  decrypt() {
+  decrypt = () => {
     axios.post('/decrypt', {
       encrypted: this.state.encrypted,
       passphrase: this.state.passphrase,
@@ -82,10 +80,10 @@ class EnigmaCard extends Component {
     return (
       <div>
         <ThemeProvider theme={theme}>
-          <Card style={{width: '350px'}}>
+          <Card style={{ width: '350px', padding: '10px' }}>
             <CardTitle title="Enigma" />
-              <Avatar title={this.state.name} />
               <Input
+                icon={<Avatar title={this.state.name} />}
                 type='text'
                 label='Name'
                 name='name'
@@ -132,14 +130,17 @@ class EnigmaCard extends Component {
                 type='text'
                 label='Message'
                 name='encrypted'
+                multiline
                 value={this.state.encrypted}
                 onChange={this.handleChange.bind(this, 'encrypted')}
               />
             </Dialog>
-            <div>Your Passphrase - {this.state.passphrase}</div>
-            <div onClick={() => this.generatePassphrase()}>Generate New Passphrase</div>
           </Card>
         </ThemeProvider>
+        <div style={{ padding: '10px' }}>
+          <div>Your Passphrase - {this.state.passphrase}</div>
+          <Button onClick={() => this.generatePassphrase()}>Generate New Passphrase</Button>
+        </div>
       </div>
     )
   }
