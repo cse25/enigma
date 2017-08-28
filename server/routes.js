@@ -24,7 +24,7 @@ app.post('/decrypt', function(request, response) {
     parsed = JSON.parse(decrypted)
   } catch (e) {
     response.send({
-      message: 'Invalid code',
+      message: 'Invalid encrypted message',
       name: ''
     })
   }
