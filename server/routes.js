@@ -19,9 +19,17 @@ app.post('/decrypt', function(request, response) {
   const object = request.body.encrypted
   const passphrase = request.body.passphrase
   const decrypted = crypto.decrypt(object, passphrase)
-  const parsedObject = JSON.parse(decrypted)
-  if (moment().isBefore(parsedObject.expirationDate) || parsedObject.expirationDate === '') {
-    response.send(parsedObject)
+  let parsed
+  try {
+    parsed = JSON.parse(decrypted)
+  } catch (e) {
+    response.send({
+      message: 'Invalid code',
+      name: ''
+    })
+  }
+  if (moment().isBefore(parsed.expirationDate) || parsed.expirationDate === '') {
+    response.send(parsed)
   } else {
     response.send({
       message: 'Message has expired',
