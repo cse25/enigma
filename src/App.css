@@ -22,3 +22,10 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.center-div {
+  width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 10px;
+}
