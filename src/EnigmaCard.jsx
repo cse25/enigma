@@ -27,7 +27,7 @@ class EnigmaCard extends Component {
   actions = [
     { label: "Close", onClick: () => this.handleToggle() },
     { label: "Decrypt", onClick: () => this.decrypt() }
-  ];
+  ]
 
   componentDidMount() {
     if (localStorage.getItem === '') {
