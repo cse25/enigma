@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 import theme from './assets/react-toolbox/theme.js'
 import ThemeProvider from 'react-toolbox/lib/ThemeProvider'
-import './assets/react-toolbox/theme.css'
 import Avatar from 'react-toolbox/lib/avatar/Avatar'
 import Button from 'react-toolbox/lib/button/Button'
 import Card from 'react-toolbox/lib/card/Card'
@@ -9,7 +9,7 @@ import CardTitle from 'react-toolbox/lib/card/CardTitle'
 import DatePicker from 'react-toolbox/lib/date_picker/DatePicker'
 import Dialog from 'react-toolbox/lib/dialog/Dialog'
 import Input from 'react-toolbox/lib/input/Input'
-import axios from 'axios'
+import './assets/react-toolbox/theme.css'
 
 class EnigmaCard extends Component {
   constructor(props) {
@@ -20,30 +20,30 @@ class EnigmaCard extends Component {
       expirationDate: '',
       passphrase: '',
       encrypted: '',
-      active: false
+      active: false,
     }
   }
 
   actions = [
-    { label: "Close", onClick: () => this.handleToggle() },
-    { label: "Decrypt", onClick: () => this.decrypt() }
+    { label: 'Close', onClick: () => this.handleToggle() },
+    { label: 'Decrypt', onClick: () => this.decrypt() }
   ]
 
-  componentDidMount() {
+  componentWillMount() {
     if (localStorage.getItem === '') {
       this.generatePassphrase()
     } else {
       window.location.hash = localStorage.getItem('passphrase')
-      this.setState({ passphrase: localStorage.getItem('passphrase')})
+      this.setState({ passphrase: localStorage.getItem('passphrase') })
     }
   }
 
   handleChange = (name, value) => {
-    this.setState({ ...this.state, [name]: value });
+    this.setState({ ...this.state, [name]: value })
   }
 
   handleToggle = () => {
-    this.setState({ active: !this.state.active });
+    this.setState({ active: !this.state.active })
   }
 
   generatePassphrase() {
@@ -98,7 +98,7 @@ class EnigmaCard extends Component {
               maxLength={120}
               required
               value={this.state.message}
-              onChange={(value) => {this.handleChange('message', value)}}
+              onChange={(value) => this.handleChange('message', value)}
             />
             <DatePicker
               label='Expiration Date'
@@ -107,7 +107,7 @@ class EnigmaCard extends Component {
               minDate={new Date()}
               autoOk
               value={this.state.expirationDate}
-              onChange={(value) => {this.handleChange('expirationDate', value)}}
+              onChange={(value) => this.handleChange('expirationDate', value)}
             />
             <span>
               <Button
