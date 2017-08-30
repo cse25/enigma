@@ -18,13 +18,14 @@ app.post('/encrypt', function(request, response) {
 app.post('/decrypt', function(request, response) {
   const object = request.body.encrypted
   const passphrase = request.body.passphrase
-  const decrypted = crypto.decrypt(object, passphrase)
+  let decrypted
   let parsed
   try {
+    decrypted = crypto.decrypt(object, passphrase)
     parsed = JSON.parse(decrypted)
   } catch (e) {
     response.send({
-      message: 'Invalid encrypted message',
+      message: 'Encrypted text or passphrase invalid',
       name: ''
     })
   }
