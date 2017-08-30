@@ -11,21 +11,25 @@
     "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.11"
+    "react-scripts": "1.0.11",
+    "react-toolbox": "^2.0.0-beta.12",
+    "react-toolbox-themr": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "server": "node server/routes.js",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "eslint src",
     "eject": "react-scripts eject",
     "toolbox": "react-toolbox-themr"
   },
   "proxy": "http://localhost:3001",
   "devDependencies": {
-    "nodemon": "^1.11.0",
-    "react-toolbox": "^2.0.0-beta.12",
-    "react-toolbox-themr": "^1.0.2"
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0"
   },
   "reactToolbox": {
     "include": [
