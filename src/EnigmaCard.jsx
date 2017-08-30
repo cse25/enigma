@@ -89,7 +89,7 @@ class EnigmaCard extends Component {
                 name='name'
                 required
                 value={this.state.name}
-                onChange={this.handleChange.bind(this, 'name')}
+                onChange={(value) => this.handleChange('name', value)}
               />
             <Input
               type='text'
@@ -98,7 +98,7 @@ class EnigmaCard extends Component {
               maxLength={120}
               required
               value={this.state.message}
-              onChange={this.handleChange.bind(this, 'message')}
+              onChange={(value) => {this.handleChange('message', value)}}
             />
             <DatePicker
               label='Expiration Date'
@@ -107,7 +107,7 @@ class EnigmaCard extends Component {
               // minDate={new Date()}
               autoOk
               value={this.state.expirationDate}
-              onChange={this.handleChange.bind(this, 'expirationDate')}
+              onChange={(value) => {this.handleChange('expirationDate', value)}}
             />
             <span>
               <Button
@@ -134,7 +134,7 @@ class EnigmaCard extends Component {
                 name='encrypted'
                 multiline
                 value={this.state.encrypted}
-                onChange={this.handleChange.bind(this, 'encrypted')}
+                onChange={(value) => this.handleChange('encrypted', value)}
               />
             </Dialog>
           </Card>
