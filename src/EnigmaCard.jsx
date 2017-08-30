@@ -103,8 +103,8 @@ class EnigmaCard extends Component {
             <DatePicker
               label='Expiration Date'
               name='expirationDate'
-              // Uncomment to disallow user from selecting current or previous date.
-              // minDate={new Date()}
+              // Comment out next line to allow selection of current or previous date.
+              minDate={new Date()}
               autoOk
               value={this.state.expirationDate}
               onChange={(value) => {this.handleChange('expirationDate', value)}}
